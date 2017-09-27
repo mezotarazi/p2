@@ -1,5 +1,4 @@
 <?php
-include('includes/formLogic.php');
 ?>
 
 <!DOCTYPE html>
@@ -44,9 +43,10 @@ include('includes/formLogic.php');
                             <li role="presentation" class="active"><a  href="#metric" aria-controls="metric" role="tab" data-toggle="tab">Metric</a></li>
                         <?php endif;?>
                 <?php else:?>
-                    </br></br></br></br>
+
                     <li role="presentation" class="active"><a href="#imperial" aria-controls="imperial" role="tab" data-toggle="tab">Imperial</a></li>
                     <li role="presentation"><a class="text-muted" href="#metric" aria-controls="metric" role="tab" data-toggle="tab">Metric</a></li>
+
                 <?php endif;?>
             <?php endif;?>
         </ul>
@@ -147,7 +147,7 @@ include('includes/formLogic.php');
 			  </td>
 			  </tr>
 			  
-			  <tr>
+			 
 
 			  
 			  			
