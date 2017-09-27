@@ -1,4 +1,5 @@
 <?php
+include('includes/formLogic.php');
 ?>
 
 <!DOCTYPE html>
@@ -43,10 +44,8 @@
                             <li role="presentation" class="active"><a  href="#metric" aria-controls="metric" role="tab" data-toggle="tab">Metric</a></li>
                         <?php endif;?>
                 <?php else:?>
-
                     <li role="presentation" class="active"><a href="#imperial" aria-controls="imperial" role="tab" data-toggle="tab">Imperial</a></li>
                     <li role="presentation"><a class="text-muted" href="#metric" aria-controls="metric" role="tab" data-toggle="tab">Metric</a></li>
-
                 <?php endif;?>
             <?php endif;?>
         </ul>
@@ -146,8 +145,7 @@
 			    </select>
 			  </td>
 			  </tr>
-			  
-			 
+                  
 
 			  
 			  			
