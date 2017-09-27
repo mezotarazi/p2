@@ -19,7 +19,6 @@ $BMI = round(BMI($_GET['measure'],$_GET['weight'],$_GET['height']),2);
 
 $activity_array = array('1.0' => 'Minimal','1.2' => 'Inactive','1.376' => 'Light', '1.55' => 'Moderate','1.725' => 'Heavy', '1.9' => 'Athlete');
 ?>
-
 <div class="container">
 
     <div class="jumbotron">

@@ -1,4 +1,6 @@
-
+<?php
+include('includes/formLogic.php');
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,23 +17,60 @@
         <div>
             <h2  >Resting Metabolic Rate (RMR) Calculator</h2></div>
         <p>This Calculator is based on Mifflin St. Jeor Algorithm to calculate Calorie intake</p>
+        <?php if (isset($errors) && !empty($errors)) :?>
+            <div class='alert alert-danger'>
+                <ul>
+                    <?php foreach ($errors as $error) :?>
+                        <li><?=$error?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php elseif ($form->isSubmitted()):
+            header('LOCATION: results.php?' . $_SERVER['QUERY_STRING']);
+        endif;?>
 
 
 
-    </br></br></br>
+
+
         <ul class="nav nav-tabs" id="units-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#imperial" aria-controls="imperial" role="tab" data-toggle="tab">Imperial</a></li>
-            <li role="presentation"><a class="text-muted" href="#metric" aria-controls="metric" role="tab" data-toggle="tab">Metric</a></li>
+            <?php if(isset($_SERVER['QUERY_STRING'])):?>
+                    <?php if(isset($_GET['measure'])):?>
+                        <?php if ($_GET['measure']=='imperial'):?>
+                            <li role="presentation" class="active"><a href="#imperial" aria-controls="imperial" role="tab" data-toggle="tab">Imperial</a></li>
+                            <li role="presentation"><a class="text-muted" href="#metric" aria-controls="metric" role="tab" data-toggle="tab">Metric</a></li>
+                        <?php elseif ($_GET['measure']=='metric'):?>
+                            <li role="presentation" ><a class="text-muted" href="#imperial" aria-controls="imperial" role="tab" data-toggle="tab">Imperial</a></li>
+                            <li role="presentation" class="active"><a  href="#metric" aria-controls="metric" role="tab" data-toggle="tab">Metric</a></li>
+                        <?php endif;?>
+                <?php else:?>
+                    </br></br></br></br>
+                    <li role="presentation" class="active"><a href="#imperial" aria-controls="imperial" role="tab" data-toggle="tab">Imperial</a></li>
+                    <li role="presentation"><a class="text-muted" href="#metric" aria-controls="metric" role="tab" data-toggle="tab">Metric</a></li>
+                <?php endif;?>
+            <?php endif;?>
         </ul>
 
 	<div class="row">
 		<div class="col-sm-6 tab-content">
 
-						
-				<div role="tabpanel" class="tab-pane active" id="imperial">
+            <?php if(isset($_SERVER['QUERY_STRING'])):?>
+                <?php if(isset($_GET['measure'])):?>
+                    <?php if ($_GET['measure']=='imperial'):?>
+                        <div role="tabpanel" class="tab-pane active" id="imperial">
+                    <?php elseif ($_GET['measure']=='metric'):?>
+                        <div role="tabpanel" class="tab-pane" id="imperial">
+                    <?php endif;?>
+                <?php else:?>
+                        <div role="tabpanel" class="tab-pane active" id="imperial">
+                <?php endif;?>
+            <?php endif;?>
+
 					<div id="form">
 
-			<form method="get" action="/results.php">
+
+
+			<form method="get">
 			  
 			  <input type="hidden" name="measure" value="imperial">
 
@@ -48,19 +87,19 @@
 			  <tr>
 			  <td class="col1"><label for="age">Age</label></td>
 			  <td>
-			  <input type="text" name="age" class="form-control" id="age" style="width:60px;" maxlength="3" value="">
+			  <input type="text" name="age"  id="age" style="width:60px;" maxlength="3" value="<?=$form->prefill('age')?>">
 			  </td>
 			  </tr>
 			  
 			  <tr>
 			  <td class="col1"><label for="weight">Weight</label></td>
-			  <td><input type="text" name="weight" class="form-control" id="weight" placeholder="lbs" style="width:60px;" maxlength="3" value=""></td>
+			  <td><input type="text" name="weight"  id="weight" placeholder="lbs" style="width:60px;" maxlength="3" value="<?=$form->prefill('weight')?>"></td>
 			  </tr>
 			  
 			  <tr>
 			  <td class="col1"><label for="height">Height</label></td>
 			  <td>
-			    <select name="height" class="form-control" id="height" style="width:100px;">
+			    <select name="height"  id="height" style="width:100px;">
 			    <option value="55">4ft 7in</option>
 			    <option value="56">4ft 8in</option>
 			    <option value="57">4ft 9in</option>
@@ -98,7 +137,7 @@
 			  <tr>
 			  <td class="col1">Activity</td>
 			  <td>
-			    <select name="activity" class="form-control" style="width:200px;">
+			    <select name="activity"  style="width:200px;">
 			    <option value="1.2" selected>Inactive</option>
 			    <option value="1.375">Light Exercise (1-2 days/week)</option>
 			    <option value="1.55">Moderate Exercise (3-5 days/week)</option>
@@ -123,10 +162,23 @@
 		</div> <!-- end #form -->				</div>
 
 
-				<div role="tabpanel" class="tab-pane" id="metric">
+
+            <?php if(isset($_SERVER['QUERY_STRING'])):?>
+                <?php if(isset($_GET['measure'])):?>
+                    <?php if ($_GET['measure']=='imperial'):?>
+
+                        <div role="tabpanel" class="tab-pane" id="metric">
+                <?php elseif ($_GET['measure']=='metric'):?>
+                        <div role="tabpanel" class="tab-pane active" id="metric">
+                    <?php endif;?>
+                <?php else:?>
+                    <div role="tabpanel" class="tab-pane" id="metric">
+                <?php endif;?>
+                <?php endif;?>
+
 					<div id="form-metric">
 
-			<form name="form-metric-tagged" method="get" action="/results.php">
+			<form name="form-metric-tagged" method="get" >
 
 			  <input type="hidden" name="measure" value="metric">
 
@@ -143,24 +195,24 @@
 			  <tr>
 			  <td class="col1"><label for="age">Age</label></td>
 			  <td>
-			  <input type="text" name="age" class="form-control" id="age-metric" style="width:60px;" maxlength="3" value="">
+			  <input type="text" name="age"  id="age-metric" style="width:60px;" maxlength="3" value="<?=$form->prefill('age')?>">
 			  </td>
 			  </tr>
 			  
 			  <tr>
 			  <td class="col1"><label for="weight">Weight</label></td>
-			  <td><input type="text" name="weight" class="form-control" id="weight-metric" placeholder="kg" style="width:60px;" maxlength="5"></td>
+			  <td><input type="text" name="weight"  id="weight-metric" placeholder="kg" style="width:60px;" maxlength="5" value="<?=$form->prefill('weightkg')?>"></td>
 			  </tr>
 			  
 			  <tr>
 			  <td class="col1"><label for="height-metric">Height</label></td>
-			  <td><input type="text" name="height" class="form-control" id="height-metric" placeholder="cm" style="width:60px;" maxlength="3"></td>
+			  <td><input type="text" name="height"  id="height-metric" placeholder="cm" style="width:60px;" maxlength="3"><?=$form->prefill('heightcm')?></td>
 			  </tr>
 			  
 			  <tr>
 			  <td class="col1">Activity</td>
 			  <td>
-			    <select name="activity" class="form-control" style="width:200px;">
+			    <select name="activity"  style="width:200px;">
 			    <option value="1.2" selected>Inactive (office job)</option>
 			    <option value="1.375">Light Exercise (1-2 days/week)</option>
 			    <option value="1.55">Moderate Exercise (3-5 days/week)</option>
@@ -198,5 +250,6 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
 </body>
 </html>
