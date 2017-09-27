@@ -145,7 +145,7 @@ include('includes/formLogic.php');
 			    </select>
 			  </td>
 			  </tr>
-                  
+
 
 			  
 			  			
@@ -219,8 +219,7 @@ include('includes/formLogic.php');
 			    </select>
 			  </td>
 			  </tr>
-			  
-			  <tr>
+                  
 
 			  			
 			  <tr style="margin-top:15px;">
